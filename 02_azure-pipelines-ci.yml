@@ -64,3 +64,17 @@ jobs:
     displayName: 'Publish Artifact (Dacpac)'
     inputs:
       ArtifactName: dacpac
+
+
+- stage: Deploy
+  displayName: 'Deploy'
+  dependsOn: __default
+  condition: succeeded()
+  jobs:
+  - job: Deploy
+    displayName: 'Deploy Application'
+    pool:
+      vmImage: 'windows-2022'
+    steps:
+    - script: echo "Deploy stage started"
+      displayName: 'Start Deploy'
