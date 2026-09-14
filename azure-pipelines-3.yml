@@ -134,7 +134,7 @@ stages:
         action: 'Create Or Update Resource Group'
 #        resourceGroupName: '$(ResourceGroupName)'
         resourceGroupName: '$(ResourceGroupName)'
-        location: 'West Europe'
+        location: 'West US 3'
         templateLocation: 'Linked artifact'
         csmFile: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.json'
         csmParametersFile: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.parameters.json'
