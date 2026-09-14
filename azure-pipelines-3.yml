@@ -89,6 +89,11 @@ stages:
       inputs:
         ArtifactName: dacpac
 
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: ARM templates'
+      inputs:
+        PathtoPublish: AzureResourceGroupDeployment
+        ArtifactName: arm
 
 - stage: Dev_Stage
   displayName: Create & Deploy to Dev
