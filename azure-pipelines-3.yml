@@ -90,3 +90,33 @@ stages:
         ArtifactName: dacpac
 
 
+- stage: Dev_Stage
+  displayName: Create & Deploy to Dev
+  dependsOn: Build_Stage
+  variables:
+    azureSubscription: 'azure-connection' # couldn't be referenced
+    ResourceGroupName: '$(Prefix)-$(Release.EnvironmentName)-$(UniqueId)-RG'
+    Database.Admin: 'shams'
+    Database.Password: '@Aa123456' # to be secured in Key Vault
+    Database.Name: 'EmployeesDB'
+    WebAppName: '$(Prefix)-$(Release.EnvironmentName)-$(UniqueId)'
+    WebAppNameUrl: 'https://$(WebAppName).azurewebsites.net/'
+    SqlServerName: '$(Prefix)-sql-$(Release.EnvironmentName)-$(UniqueId)'
+    Prefix: 'tunis'
+    Release.EnvironmentName: 'dev'
+    UniqueId: '1280' #'$(Build.BuildId)'
+    hostingPlanName: '$(Prefix)-service-plan'
+
+  jobs:
+  - job: Create_DEV
+    displayName: Create DEV
+    pool:
+      vmImage: 'windows-2022'
+    steps:
+
+    - checkout: none
+    - task: DownloadBuildArtifacts@0
+      displayName: Download ARM templates
+      inputs:
+        artifactName: arm
+        downloadPath: $(System.DefaultWorkingDirectory)
